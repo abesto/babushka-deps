@@ -1,9 +1,10 @@
-Prereqs: base 64-bit ArchLinux install with working network.
+Prereqs: base 64-bit ArchLinux install with working network. Then run, as root:
 
-* Install babushka (https://babushka.me/installing)
-* Clone this repo
-* `babushka 'as root'`  # as root
-* `passwd abesto`
-* `su - abesto`
-* add SSH key
-* `babushka all`
+```sh
+sh -c "`curl https://babushka.me/up`"  # or otherwise, from https://babushka.me/installing
+babushka 'abesto:as root'
+passwd abesto
+su - abesto
+# Manually add SSH key
+babushka abesto:all
+```
