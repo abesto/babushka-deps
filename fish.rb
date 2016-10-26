@@ -13,8 +13,6 @@ meta :fisher do
 	}
 end
 
-dep 'z.fisher'
-dep 'metro.fisher'
 
 dep 'fish' do
 	requires 'fish.bin',
@@ -26,4 +24,13 @@ dep 'fish' do
 			:filename => 'fish',
 			:contents => 'exec fish'
 	)
+end
+
+dep 'z.fisher'
+dep 'metro.fisher' do
+	requires 'powerline-fonts.lib'
+end
+
+dep 'powerline-fonts.lib' do
+	requires 'arch repo'.with(:repo_name => 'community')
 end

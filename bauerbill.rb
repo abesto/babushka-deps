@@ -14,12 +14,10 @@ meta :aur do
 			cd $tmpdir
 			echo P | bauerbill --aur -S #{package}
 			echo P | ./build/download.sh
-			echo -n 'P\nY\n' | ./build/build.sh
+			echo P | ./build/build.sh
 			cd -
 			rm -rf $tmpdir
 			"""
 		}
 	}
 end
-
-dep 'python-powerline-git.aur'
