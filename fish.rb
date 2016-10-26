@@ -22,7 +22,7 @@ end
 dep 'fish' do
 	requires 'fish.bin', 'fortune.bin', 'most.bin',
 		'fisherman',
-		'z.fisher', 'metro.fisher', 'git.fisher',
+		'z.fisher', 'metro.fisher',
 		'custom fish stuff',
 		'symlink dotfile'.with('bin'),
 		'bashrc'.with(
