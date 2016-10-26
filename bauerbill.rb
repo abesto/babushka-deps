@@ -1,18 +1,21 @@
 dep 'bauerbill.bin' do
-	requires 'arch repo'.with(
+	requires 'base-devel.bin',
+           'arch repo'.with(
 		:repo_name => 'xyne-x86_64',
 		:server => 'http://xyne.archlinux.ca/repos/xyne')
 end
 
 meta :aur do
 	template {
+    requires 'jq.bin', 'bauerbill.bin'
 		package = File.basename(name, '.aur')
-		met? { shell("bauerbill -Q #{package}").include?('error:') }
+		met? { /^#{package}/.match(shell("bauerbill -Q #{package}"))  }
 		meet { 
 			shell """
 			tmpdir=$(mktemp -d)
 			cd $tmpdir
-			echo P | bauerbill --aur -S #{package}
+      cat /etc/bauerbill/bauerbill.json | jq '.[\"makepkg commands\"].build.default += [\"--noconfirm\"]' > ./bauerbill.json
+			bauerbill --aur -S #{package} --bb-config ./bauerbill.json
 			echo P | ./build/download.sh
 			echo P | ./build/build.sh
 			cd -
@@ -20,4 +23,9 @@ meta :aur do
 			"""
 		}
 	}
+end
+
+dep 'jq.bin'
+dep 'base-devel.bin' do
+   provides %w[gcc g++ make ld autoconf automake libtoolize]
 end

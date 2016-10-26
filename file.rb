@@ -1,8 +1,8 @@
 dep 'file contents', :path, :contents, :use_sudo do
-	use_sudo.default false
+	use_sudo.default! no
 	met? { path.p.read == contents }
 	meet { 
-		if use_sudo
+		if yesno use_sudo
 			require 'tempfile'
 			file = Tempfile.new
 			file.write(contents)
@@ -16,10 +16,10 @@ dep 'file contents', :path, :contents, :use_sudo do
 end
 
 dep 'file contains', :path, :string, :use_sudo do
-	use_sudo.default false
+	use_sudo.default! no
 	met? { path.p.read.include? string }
 	meet { 
-		if use_sudo
+		if yesno use_sudo
 			sudo "echo -n '#{string}' >> #{path}"
 		else
 			path.p.append string 
@@ -28,14 +28,10 @@ dep 'file contains', :path, :string, :use_sudo do
 end
 
 dep 'directory exists', :dir, :use_sudo do
-	use_sudo.default false
+	use_sudo.default! no
 	met? { Dir.exists?(dir) }
 	meet { 
 		cmd = "mkdir -p '#{dir}'"
-		if use_sudo
-			shell(cmd, :sudo => true)
-		else
-			shell cmd
-		end
+		shell cmd, :sudo => yesno(use_sudo)
 	}
 end
