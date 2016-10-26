@@ -1,7 +1,7 @@
 dep 'all' do
 	requires 'VirtualBox Guest Additions',
 		'lightdm', 'xmonad', 'xfce', 'xclip.bin',
-		'xterm', 'urxvt',
+		'xterm', 'urxvt', 'java',
 		'symlink dotfile'.with('.gitconfig'),
 		'ssh client', 'vim', 'fish',
 	       	'firefox',

@@ -13,17 +13,18 @@ meta :fisher do
 	}
 end
 
-dep 'custom fish functions' do
+dep 'custom fish stuff' do
 	requires 'dotfiles'
 	met? { shell('fish -c "fisher list"').include?('abesto') }
-	meet { shell 'fish -c "fisher install ~/dotfiles/.config/fish/functions/fish-abesto"' }
+	meet { shell 'fish -c "fisher install ~/dotfiles/fish-abesto"' }
 end
 
 dep 'fish' do
-	requires 'fish.bin', 'fortune.bin',
+	requires 'fish.bin', 'fortune.bin', 'most.bin',
 		'fisherman',
-		'z.fisher', 'metro.fisher',
-		'custom fish functions',
+		'z.fisher', 'metro.fisher', 'git.fisher',
+		'custom fish stuff',
+		'symlink dotfile'.with('bin'),
 		'bashrc'.with(
 			:priority => 99,
 			:filename => 'fish',
@@ -32,12 +33,13 @@ dep 'fish' do
 end
 
 dep 'z.fisher'
+dep 'git.fisher'
 dep 'metro.fisher' do
 	requires 'powerline-fonts.lib'
 end
 
 dep 'powerline-fonts.lib'
-
 dep 'fortune.bin' do
 	installs 'fortune-mod'
 end
+dep 'most.bin'
