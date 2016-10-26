@@ -1,5 +1,5 @@
 dep 'spacemacs' do
-	requires 'emacs.bin',
+	requires 'emacs.bin', 'adobe-source-code-pro-fonts.lib',
 		'symlink dotfile'.with('.spacemacs'),
 		'emacs server on login',
     'nodejs-tern.aur'  # for nodejs code analysis
@@ -31,3 +31,4 @@ end
 
 dep 'emacs.bin'
 dep 'nodejs-tern.aur'
+dep 'adobe-source-code-pro-fonts.lib'

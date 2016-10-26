@@ -10,7 +10,7 @@ meta :aur do
     requires 'jq.bin', 'bauerbill.bin'
 		package = File.basename(name, '.aur')
 		met? { /^#{package}/.match(shell("bauerbill -Q #{package}"))  }
-		meet { 
+		meet {
 			shell """
 			tmpdir=$(mktemp -d)
 			cd $tmpdir
