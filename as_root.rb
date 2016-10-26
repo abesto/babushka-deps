@@ -1,3 +1,3 @@
 dep 'as root' do
-	requires 'sudo', 'abesto user'
+  requires 'sudo', 'abesto user'
 end

@@ -1,5 +1,5 @@
 dep 'firefox.bin'
 
 dep 'firefox' do
-	requires 'firefox.bin'
+  requires 'firefox.bin'
 end

@@ -1,7 +1,7 @@
 dep 'urxvt.bin' do
-	installs 'rxvt-unicode'
+  installs 'rxvt-unicode'
 end
 
 dep 'urxvt' do
-	requires 'urxvt.bin'
+  requires 'urxvt.bin'
 end

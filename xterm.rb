@@ -1,5 +1,5 @@
 dep 'xterm.bin'
 
 dep 'xterm' do
-	requires 'xterm.bin'
+  requires 'xterm.bin'
 end
