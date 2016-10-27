@@ -1,29 +1,35 @@
 dep 'fish.bin'
 
 dep 'fisherman' do
-  met? { shell? 'fish -c "fisher help > /dev/null"' }
-  meet { shell 'curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher' }
+  met? {
+    shell?('fish -c "functions -n | grep fisher"').tap { |result|
+      log "fisherman is #{result ? '' : 'not '}installed"
+    }
+  }
+  meet { log_shell 'Installing fisher', 'curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher' }
 end
 
 meta :fisher do
+  accepts_value_for :source
+
   template {
     package = File.basename(name, '.fisher')
-    met? { shell? "fish -c 'fisher ls | grep -F \'#{package}\''" }
-    meet { shell "fish -c 'fisher \'#{package}\''" }
+    met? {
+      shell?("fish -c 'fisher ls | grep -F \'#{package}\''").tap { |result|
+        log "fisher package #{package} is #{result ? '' : 'not '}installed"
+      }
+    }
+    meet {
+      log_shell "Installing fisher package #{package}", "fish -c 'fisher \'#{source || package}\''"
+    }
   }
-end
-
-dep 'custom fish stuff' do
-  requires 'dotfiles'
-  met? { shell('fish -c "fisher list"').include?('abesto') }
-  meet { shell 'fish -c "fisher install ~/dotfiles/fish-abesto"' }
 end
 
 dep 'fish' do
   requires 'fish.bin', 'fortune.bin', 'most.bin',
            'fisherman',
            'z.fisher', 'metro.fisher', 'rvm.fisher',
-           'custom fish stuff',
+           'abesto.fisher',
            'symlink dotfile'.with('bin'),
            'bashrc'.with(
              :priority => 99,
@@ -36,6 +42,10 @@ dep 'z.fisher'
 dep 'git.fisher'
 dep 'metro.fisher' do
   requires 'powerline-fonts.lib'
+end
+dep 'abesto.fisher' do
+  requires 'dotfiles'
+  source '~/dotfiles/fish-abesto'
 end
 
 dep 'powerline-fonts.lib'

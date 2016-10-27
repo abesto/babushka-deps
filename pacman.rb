@@ -14,6 +14,11 @@ dep 'arch repo', :repo_name, :server do
              :path => '/etc/pacman.conf',
              :string => content)
 
-  met? { File.exists? '/var/lib/pacman/sync' / "#{repo_name}.db" }
-  meet { sudo 'pacman -Sy' }
+  met? {
+    db = '/var/lib/pacman/sync' / "#{repo_name}.db"
+    File.exists?(db).tap { |result|
+      log "DB file for repo #{repo_name} #{result ? 'exists' : 'does not exist'} at #{db}"
+    }
+  }
+  meet { log_shell 'Updating package lists', 'pacman -Sy', :sudo => true }
 end

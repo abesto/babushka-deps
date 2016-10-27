@@ -2,9 +2,8 @@ dep 'spacemacs' do
   requires 'emacs.bin', 'adobe-source-code-pro-fonts.lib',
            'symlink dotfile'.with('.spacemacs'),
            'emacs server on login',
-           'nodejs-tern.aur'  # for nodejs code analysis
-  met? { shell('cd ~/.emacs.d; git remote -v').include?('spacemacs') }
-  meet { shell 'git clone https://github.com/syl20bnr/spacemacs ~/.emacs.d' }
+           'nodejs-tern.aur',  # for nodejs code analysis
+           'git clone once'.with(:repo => 'https://github.com/syl20bnr/spacemacs', :to => '~/.emacs.d')
 end
 
 dep 'emacs server systemd unit' do

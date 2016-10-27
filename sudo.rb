@@ -5,15 +5,15 @@ dep 'sudo' do
 end
 
 dep 'group sudo', :group do
-  sudoers = "/etc/sudoers.d/babushka_group_sudo_#{group}"
-  line = "%#{group}  ALL=(ALL) ALL\n"
-  met? { sudoers.p.read == line }
-  meet { sudoers.p.write line }
+  requires 'file contents'.with(
+             :path => "/etc/sudoers.d/babushka_group_sudo_#{group}",
+             :contents => "%#{group}  ALL=(ALL) ALL\n"
+           )
 end
 
 # helpers for deps that have :use_sudo params
 module Babushka
-  module GitHelpers
+  module SudoHelpers
     # Make these helpers directly callable, and private when included.
     module_function
 
@@ -30,5 +30,9 @@ module Babushka
       return false if s == no
       raise "yesno got #{s}, which is not #{yes} or #{no}"
     end
+  end
+
+  class DepContext
+    include SudoHelpers
   end
 end

@@ -9,9 +9,13 @@ meta :aur do
   template {
     requires 'jq.bin', 'bauerbill.bin'
     package = File.basename(name, '.aur')
-    met? { /^#{package}/.match(shell("bauerbill -Q #{package}"))  }
+    met? {
+      /^#{package}/.match(shell("bauerbill -Q #{package}")).tap { |result|
+        log "system #{result ? 'has' : 'does not have'} AUR package #{package}"
+      }
+    }
     meet {
-      shell """
+      log_shell "Installing AUR package #{package}", """
       tmpdir=$(mktemp -d)
       cd $tmpdir
       cat /etc/bauerbill/bauerbill.json | jq '.[\"makepkg commands\"].build.default += [\"--noconfirm\"]' > ./bauerbill.json
