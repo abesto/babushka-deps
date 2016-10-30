@@ -30,4 +30,3 @@ end
 
 dep 'emacs.bin'
 dep 'nodejs-tern.aur'
-dep 'adobe-source-code-pro-fonts.lib'

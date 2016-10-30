@@ -2,7 +2,7 @@
 # st is a simple terminal.
 
 dep 'st' do
-  requires 'st-git.aur', 'tmux.bin'
+  requires 'st-git.aur', 'tmux.bin', 'adobe-source-code-pro-fonts.lib'
 end
 
 dep 'st-git.aur' do
