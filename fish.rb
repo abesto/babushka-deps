@@ -41,6 +41,7 @@ end
 dep 'z.fisher'
 dep 'git.fisher'
 dep 'metro.fisher' do
+  source 'abesto/metro'
   requires 'powerline-fonts.lib'
 end
 dep 'abesto.fisher' do
