@@ -6,6 +6,9 @@ dep 'bauerbill.bin' do
 end
 
 meta :aur do
+  accepts_block_for :pre_build
+  accepts_block_for :post_build
+
   template {
     requires 'jq.bin', 'bauerbill.bin'
     package = File.basename(name, '.aur')
@@ -16,13 +19,15 @@ meta :aur do
     }
     meet {
       log_shell "Installing AUR package #{package}", """
-      tmpdir=$(mktemp -d)
-      cd $tmpdir
-      cat /etc/bauerbill/bauerbill.json | jq '.[\"makepkg commands\"].build.default += [\"--noconfirm\"]' > ./bauerbill.json
-      bauerbill --aur -S #{package} --bb-config ./bauerbill.json
-      echo P | ./build/download.sh
-      echo P | ./build/build.sh
-      cd -
+      tmpdir=$(mktemp -d) && \
+      cd $tmpdir && \
+      cat /etc/bauerbill/bauerbill.json | jq '.[\"makepkg commands\"].build.default += [\"--noconfirm\"]' > ./bauerbill.json && \
+      bauerbill --aur -S #{package} --bb-config ./bauerbill.json && \
+      echo P | ./build/download.sh && \
+      #{invoke :pre_build} && \
+      echo P | ./build/build.sh && \
+      #{invoke :post_build} && \
+      cd - && \
       rm -rf $tmpdir
       """
     }

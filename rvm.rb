@@ -2,7 +2,7 @@ dep 'rvm' do
   requires 'bashrc'.with(
              :priority => 20,
              :filename => 'rvm',
-             :contents => 'source $HOME/.rvm/scripts/rvm'
+             :contents => 'test -f $HOME/.rvm/scripts/rvm && source $HOME/.rvm/scripts/rvm'
            ), 'rvm.fisher'
 
   met? {

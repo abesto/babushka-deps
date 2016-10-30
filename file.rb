@@ -23,6 +23,7 @@ end
 
 dep 'file contains', :path, :string, :use_sudo do
   use_sudo.default! no
+  requires 'file exists'.with(path, use_sudo)
   met? {
     path.p.read.include?(string).tap { |result|
       log "#{path} #{result ? 'contains' : 'does not contain'} expected string '#{string}'"
@@ -48,5 +49,19 @@ dep 'directory exists', :dir, :use_sudo do
   meet {
       shell "mkdir -p '#{dir}'", :sudo => yesno(use_sudo)
       log "Created directory #{dir}#{yesno(use_sudo) ? ' as root' : ''}"
+  }
+end
+
+dep 'file exists', :path, :use_sudo do
+  use_sudo.default! no
+
+  met? {
+    File.exists?(path).tap { |result|
+      log "File #{path} #{result ? 'exists' : 'does not exist'}"
+    }
+  }
+  meet {
+    shell "touch '#{path}'", :sudo => yesno(use_sudo)
+    log "Created file #{path}#{yesno(use_sudo) ? ' as root' : ''}"
   }
 end
