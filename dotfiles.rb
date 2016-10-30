@@ -3,9 +3,11 @@ dep 'dotfiles' do
 end
 
 dep 'symlink dotfile', :what do
-  requires 'dotfiles'
   from = File.join(Dir.home, 'dotfiles', what)
   to = File.join(Dir.home, what)
+
+  requires 'dotfiles', 'directory exists'.with(:dir => File.dirname(to))
+
   met? {
     (File.symlink?(to) and File.readlink(to) == from).tap { |result|
       log "'#{from}' is #{result ? '' : 'not '}a symlink to '#{to}'"
