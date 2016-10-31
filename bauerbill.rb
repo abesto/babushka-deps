@@ -23,9 +23,9 @@ meta :aur do
       cd $tmpdir && \
       cat /etc/bauerbill/bauerbill.json | jq '.[\"makepkg commands\"].build.default += [\"--noconfirm\"]' > ./bauerbill.json && \
       bauerbill --aur -S #{package} --bb-config ./bauerbill.json && \
-      echo P | ./build/download.sh && \
+      yes P | ./build/download.sh && \
       #{invoke :pre_build} && \
-      echo P | ./build/build.sh && \
+      yes P | ./build/build.sh && \
       #{invoke :post_build} && \
       cd - && \
       rm -rf $tmpdir
