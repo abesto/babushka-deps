@@ -1,6 +1,7 @@
 dep 'scala' do
-  requires 'scalastyle.aur',
+  requires 'sbt.bin', 'scalastyle.aur',
            'symlink dotfile'.with('.gradle/init.gradle')
 end
 
 dep 'scalastyle.aur'
+dep 'sbt.bin'
