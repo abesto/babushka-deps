@@ -1,5 +1,3 @@
-dep 'fish.bin'
-
 dep 'fisherman' do
   met? {
     shell?('fish -c "functions -n | grep fisher"').tap { |result|
@@ -7,6 +5,16 @@ dep 'fisherman' do
     }
   }
   meet { log_shell 'Installing fisher', 'curl -Lo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher' }
+end
+
+exec_fish_priority = 99
+exec_fish_filename = 'fish'
+
+dep '.bashrc-nofish' do
+  requires 'bashrc flavor'.with('nofish'),
+           'bashrc skip'.with(:flavor => 'nofish',
+                              :priority => exec_fish_priority,
+                              :filename => exec_fish_filename)
 end
 
 meta :fisher do
@@ -30,14 +38,15 @@ dep 'fish' do
            'fisherman',
            'z.fisher', 'metro.fisher', 'rvm.fisher',
            'abesto.fisher',
-           'symlink dotfile'.with('bin'),
            'bashrc'.with(
-             :priority => 99,
-             :filename => 'fish',
+             :priority => exec_fish_priority,
+             :filename => exec_fish_filename,
              :contents => 'exec fish'
-           )
+           ),
+           '.bashrc-nofish'
 end
 
+dep 'fish.bin'
 dep 'z.fisher'
 dep 'git.fisher'
 dep 'metro.fisher' do

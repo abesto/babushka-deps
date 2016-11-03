@@ -54,6 +54,7 @@ end
 
 dep 'file exists', :path, :use_sudo do
   use_sudo.default! no
+  requires 'directory exists'.with(:dir => File.dirname(path), :use_sudo => use_sudo)
 
   met? {
     File.exists?(path).tap { |result|

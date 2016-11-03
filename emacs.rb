@@ -1,6 +1,7 @@
 dep 'spacemacs' do
   requires 'emacs.bin', 'adobe-source-code-pro-fonts.lib',
-           'symlink dotfile'.with('.spacemacs'),
+           'symlink dotfile'.with(:what => '.spacemacs'),
+           'symlink dotfile'.with(:what => '.spacemacs-layers'),
            'emacs server on login',
            'nodejs-tern.aur',  # for nodejs code analysis
            'git clone once'.with(:repo => 'https://github.com/syl20bnr/spacemacs', :to => '~/.emacs.d')

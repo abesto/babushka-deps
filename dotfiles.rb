@@ -2,9 +2,10 @@ dep 'dotfiles' do
   git 'git@github.com:abesto/dotfiles', :to => '~/dotfiles'
 end
 
-dep 'symlink dotfile', :what do
+dep 'symlink dotfile', :what, :where do
+  where.default!(what)
   from = File.join(Dir.home, 'dotfiles', what)
-  to = File.join(Dir.home, what)
+  to = File.join(Dir.home, where)
 
   requires 'dotfiles', 'directory exists'.with(:dir => File.dirname(to))
 

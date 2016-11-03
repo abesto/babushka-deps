@@ -1,8 +1,8 @@
 dep 'xmonad' do
   requires 'xmonad.bin', 'xmonad-contrib.lib',
            'dmenu.bin', 'xmobar.bin',
-           'symlink dotfile'.with('.xmonad'),
-           'symlink dotfile'.with('.config/xmobar/xmobarrc')
+           'symlink dotfile'.with(:what => '.xmonad'),
+           'symlink dotfile'.with(:what => '.config/xmobar/xmobarrc')
 end
 
 dep 'xmonad.bin'
