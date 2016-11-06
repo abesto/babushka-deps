@@ -1,8 +1,8 @@
 dep 'all' do
   requires 'VirtualBox Guest Additions',
            'lightdm', 'xmonad', 'xfce', 'xclip.bin', 'xterm', 'st',
-           'firefox', 'slack', 'yubikey', 'imagemagick',
-           'ssh client', 'vim', 'git', 'fish', 'ag.bin',
+           'firefox', 'slack', 'gitter', 'yubikey', 'imagemagick',
+           'ssh client', 'vim', 'git', 'fish', 'ag.bin', 'wget.bin',
            'java', 'go', 'python', 'scala',
            'spell checking', 'quick key repeat',
            'abesto user', 'colemak',
@@ -10,6 +10,7 @@ dep 'all' do
 end
 
 dep 'xclip.bin'
+dep 'wget.bin'
 dep 'ag.bin' do
   installs 'the_silver_searcher'
 end
