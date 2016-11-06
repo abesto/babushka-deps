@@ -4,7 +4,7 @@ dep 'all' do
            'firefox', 'slack', 'yubikey', 'imagemagick',
            'ssh client', 'vim', 'git', 'fish', 'ag.bin',
            'java', 'go', 'python', 'scala',
-           'spell checking',
+           'spell checking', 'quick key repeat',
            'abesto user', 'colemak',
            'symlink dotfile'.with(:what => 'bin')
 end
