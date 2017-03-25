@@ -1,6 +1,6 @@
-## DEPRECATED
+## Vaporware
 
-It looks like babushka development has been dead for a while. Content in this repo has been migrated to https://github.com/abesto/chef-devenv
+Content in this repo has been migrated to https://github.com/abesto/chef-devenv
 
 ---
 
